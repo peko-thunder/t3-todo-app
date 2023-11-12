@@ -2,7 +2,6 @@ import { httpBatchLink, loggerLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
 import { type inferRouterInputs, type inferRouterOutputs } from "@trpc/server";
 import superjson from "superjson";
-
 import { type AppRouter } from "../server/trpc/router/_app";
 
 const getBaseUrl = () => {
@@ -15,6 +14,14 @@ export const trpc = createTRPCNext<AppRouter>({
   config() {
     return {
       transformer: superjson,
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            retry: false, // fetchリトライ設定OFF
+            refetchOnWindowFocus: false, // windowにフォーカスした場合に再fetchする設定OFF
+          },
+        },
+      },
       links: [
         loggerLink({
           enabled: (opts) =>

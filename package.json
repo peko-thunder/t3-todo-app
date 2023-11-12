@@ -6,6 +6,8 @@
     "build": "next build",
     "dev": "next dev",
     "postinstall": "prisma generate",
+    "prisma:migrate": "prisma migrate",
+    "prisma:studio": "prisma studio",
     "lint": "next lint",
     "start": "next start"
   },
